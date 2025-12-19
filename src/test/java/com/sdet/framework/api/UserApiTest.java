@@ -12,12 +12,12 @@ import com.sdet.framework.api.model.User;
 
 public class UserApiTest extends ApiBase {
 
-	@BeforeClass
-	public void setup() {
-		init();
-	}
+//	@BeforeClass
+//	public void setup() {
+//		init();
+//	}
 
-	@Test(groups = "api")
+	@Test(groups = {"api", "sanity"})
 	public void verifyGetUsersApi() {
 		logger.info("Calling GET Users API");
 		List<User> users = UserApi.getUsers();

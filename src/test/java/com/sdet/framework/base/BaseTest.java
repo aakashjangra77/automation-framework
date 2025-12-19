@@ -1,5 +1,6 @@
 package com.sdet.framework.base;
 
+import com.sdet.framework.api.ApiBase;
 import com.sdet.framework.driver.DriverFactory;
 import com.sdet.framework.utils.LoggerUtil;
 import org.apache.logging.log4j.Logger;
@@ -13,16 +14,17 @@ public class BaseTest {
 
     protected Logger logger = LoggerUtil.getLogger();
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void setUp(Method method) {
         logger.info("=======================================");
         logger.info("STARTING TEST : " + method.getName());
 
         DriverFactory.initDriver();
+        ApiBase.init();  
         logger.info("Browser launched successfully");
     }
 
-    @AfterMethod
+    @AfterMethod(alwaysRun = true)
     public void tearDown(ITestResult result) {
 
         if (result.getStatus() == ITestResult.SUCCESS) {

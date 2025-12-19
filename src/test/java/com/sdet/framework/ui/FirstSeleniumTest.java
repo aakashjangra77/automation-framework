@@ -9,7 +9,7 @@ import com.sdet.framework.pages.GoogleHomePage;
 
 public class FirstSeleniumTest extends BaseTest {
 
-	@Test(groups = { "ui" })
+	@Test(groups = {"ui", "sanity"})
 	public void launchBrowserUsingFramework() {
 		logger.info("Launching Google Url");
 		DriverFactory.getDriver().get("https://www.google.com");
@@ -18,7 +18,7 @@ public class FirstSeleniumTest extends BaseTest {
 		logger.info("Title: " + DriverFactory.getDriver().getTitle());
 	}
 
-	@Test(groups =  "ui")
+	@Test(groups = {"ui", "regression"})
 	public void verifyGoogleSearchBox() {
 		logger.info("Verifying Google search box visibility");
 

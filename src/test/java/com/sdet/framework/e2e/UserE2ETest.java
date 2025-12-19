@@ -14,13 +14,13 @@ import com.sdet.framework.pages.GoogleHomePage;
 
 public class UserE2ETest extends BaseTest {
 
-    @BeforeClass
-    public void setupApi() {
-        logger.info("Initializing API configuration");
-        ApiBase.init();
-    }
+//    @BeforeClass
+//    public void setupApi() {
+//        logger.info("Initializing API configuration");
+//        ApiBase.init();
+//    }
 
-    @Test(groups = "e2e")
+    @Test(groups = {"e2e", "regression"})
     public void verifyUserDataFromApiAndUI() {
 
         logger.info("Step 1: Fetch users from API");

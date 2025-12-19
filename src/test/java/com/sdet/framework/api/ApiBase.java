@@ -1,7 +1,9 @@
 package com.sdet.framework.api;
 
 import org.apache.logging.log4j.Logger;
+import org.testng.annotations.BeforeClass;
 
+import com.sdet.framework.utils.ConfigReader;
 import com.sdet.framework.utils.LoggerUtil;
 
 import io.restassured.RestAssured;
@@ -12,12 +14,14 @@ public class ApiBase {
 
 	protected static Logger logger = LoggerUtil.getLogger();
 
+	@BeforeClass(alwaysRun = true)
 	public static void init() {
-		RestAssured.baseURI = "https://jsonplaceholder.typicode.com";
+		   LoggerUtil.getLogger().info("Initializing API configuration");
 
-		// log request & response automatically
-		RestAssured.filters(new RequestLoggingFilter(), new ResponseLoggingFilter());
+	        RestAssured.baseURI =
+	                ConfigReader.getProperty("apiBaseUrl");
 
-		logger.info("API Base initialized with URI: " + RestAssured.baseURI);
+	        LoggerUtil.getLogger().info(
+	                "API Base initialized with URI: " + RestAssured.baseURI);
 	}
 }
