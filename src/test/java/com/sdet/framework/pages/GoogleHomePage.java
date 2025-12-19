@@ -14,4 +14,8 @@ public class GoogleHomePage extends BasePage {
 	public boolean isSearchBoxDisplayed() {
 		return driver.findElement(searchBox).isDisplayed();
 	}
+	
+	public void searchFor(String text) {
+		driver.findElement(searchBox).sendKeys(text);
+	}
 }

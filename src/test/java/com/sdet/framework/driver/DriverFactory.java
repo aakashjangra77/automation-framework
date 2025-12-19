@@ -1,6 +1,7 @@
 package com.sdet.framework.driver;
 
 import java.time.Duration;
+
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import com.sdet.framework.utils.ConfigReader;
@@ -9,18 +10,25 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class DriverFactory {
 	private static ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>();
 
-	public static WebDriver getDriver() {
-		if (driver.get() == null) {
-			String browser = ConfigReader.getProperty("browser");
+	private DriverFactory() {
+		// prevent object creation
+	}
 
-			if (browser.equalsIgnoreCase("chrome")) {
-				WebDriverManager.chromedriver().setup();
-				driver.set(new ChromeDriver());
-			}
+	public static void initDriver() {
 
-			driver.get().manage().timeouts()
-					.implicitlyWait(Duration.ofSeconds(Long.parseLong(ConfigReader.getProperty("implicitWait"))));
+		String browser = ConfigReader.getProperty("browser");
+
+		if (browser.equalsIgnoreCase("chrome")) {
+			WebDriverManager.chromedriver().setup();
+			driver.set(new ChromeDriver());
 		}
+
+		driver.get().manage().timeouts()
+				.implicitlyWait(Duration.ofSeconds(Long.parseLong(ConfigReader.getProperty("implicitWait"))));
+
+	}
+
+	public static WebDriver getDriver() {
 		return driver.get();
 	}
 

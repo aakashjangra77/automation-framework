@@ -6,9 +6,11 @@
     </listeners>
 
     <test name="All Tests">
-        <packages>
-            <package name="com.sdet.framework.ui"/>
-        </packages>
+        <classes>
+            <class name="com.sdet.framework.ui.FirstSeleniumTest"/>
+            <class name="com.sdet.framework.api.UserApiTest"/>
+            <class name="com.sdet.framework.e2e.UserE2ETest"/>
+        </classes>
     </test>
 
 </suite>

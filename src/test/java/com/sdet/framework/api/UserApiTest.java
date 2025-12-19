@@ -1,25 +1,31 @@
 package com.sdet.framework.api;
 
+import java.util.List;
+
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
-import io.restassured.response.Response;
 
-public class UserApiTest {
+import com.sdet.framework.api.model.User;
 
-    @BeforeClass
-    public void setup() {
-        ApiBase.init();
-    }
 
-//    @Test
-//    public void verifyGetUsersApi() {
-//        Response response = UserApi.getUsers();
-//
-//        System.out.println("Status Code: " + response.getStatusCode());
-//        System.out.println(response.asPrettyString());
-//
-//        Assert.assertEquals(response.getStatusCode(), 200);
-//        Assert.assertTrue(response.jsonPath().getList("$").size() > 0);
-//    }
+
+public class UserApiTest extends ApiBase {
+
+	@BeforeClass
+	public void setup() {
+		init();
+	}
+
+	@Test(groups = "api")
+	public void verifyGetUsersApi() {
+		logger.info("Calling GET Users API");
+		List<User> users = UserApi.getUsers();
+
+		logger.info("Validating users list");
+		Assert.assertNotNull(users);
+		Assert.assertTrue(users.size() > 0, "User list is empty");
+
+		logger.info("First user from API: " + users.get(0).getName());
+	}
 }
