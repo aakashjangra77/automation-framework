@@ -1,23 +1,33 @@
 package com.sdet.framework.utils;
 
-import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.Properties;
 
 public class ConfigReader {
 
-	private static Properties prop;
-	static {
-		try {
-			prop = new Properties();
-			FileInputStream fis = new FileInputStream("src/test/resources/config.properties");
-			prop.load(fis);
-		} catch (Exception e) {
-			throw new RuntimeException("Failed to load config.properties");
-		}
-	}
+    private static Properties properties = new Properties();
 
-	public static String getProperty(String key) {
-		return prop.getProperty(key);
-	}
+    static {
+        try {
+            String env = System.getProperty("env", "qa");
+            String fileName = "config/" + env + ".properties";
 
+            InputStream input = ConfigReader.class
+                    .getClassLoader()
+                    .getResourceAsStream(fileName);
+
+            if (input == null) {
+                throw new RuntimeException("Config file not found: " + fileName);
+            }
+
+            properties.load(input);
+
+        } catch (Exception e) {
+            throw new RuntimeException("Failed to load config file", e);
+        }
+    }
+
+    public static String getProperty(String key) {
+        return properties.getProperty(key);
+    }
 }
