@@ -13,6 +13,7 @@ public class UserApi {
                 .get("/users")
                 .then()
                 .extract()
+                .body()
                 .as(new TypeRef<List<User>>() {});
     }
 }
