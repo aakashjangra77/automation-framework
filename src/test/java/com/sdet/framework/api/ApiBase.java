@@ -7,8 +7,7 @@ import com.sdet.framework.utils.ConfigReader;
 import com.sdet.framework.utils.LoggerUtil;
 
 import io.restassured.RestAssured;
-import io.restassured.filter.log.RequestLoggingFilter;
-import io.restassured.filter.log.ResponseLoggingFilter;
+
 
 public class ApiBase {
 

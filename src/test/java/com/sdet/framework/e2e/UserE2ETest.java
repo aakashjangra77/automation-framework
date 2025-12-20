@@ -7,7 +7,6 @@ import org.testng.annotations.Test;
 import com.sdet.framework.api.UserApi;
 import com.sdet.framework.api.model.User;
 import com.sdet.framework.base.BaseTest;
-import com.sdet.framework.retry.RetryAnalyzer;
 import com.sdet.framework.pages.GoogleHomePage;
 
 public class UserE2ETest extends BaseTest {
