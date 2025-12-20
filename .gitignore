@@ -3,6 +3,7 @@ target/
 
 # Test Reports
 test-output/
+test-output/screenshots/
 
 # Eclipse
 .classpath
@@ -19,3 +20,6 @@ logs/
 # OS files
 Thumbs.db
 .DS_Store
+
+# Screenshots
+test-output/screenshots/
