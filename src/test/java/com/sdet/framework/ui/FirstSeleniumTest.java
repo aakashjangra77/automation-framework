@@ -6,10 +6,11 @@ import org.testng.annotations.Test;
 import com.sdet.framework.base.BaseTest;
 import com.sdet.framework.driver.DriverFactory;
 import com.sdet.framework.pages.GoogleHomePage;
+import com.sdet.framework.retry.RetryAnalyzer;
 
 public class FirstSeleniumTest extends BaseTest {
 
-	@Test(groups = {"ui", "sanity"})
+	@Test(groups = { "ui", "sanity" })
 	public void launchBrowserUsingFramework() {
 		logger.info("Launching Google Url");
 		DriverFactory.getDriver().get("https://www.google.com");
@@ -18,7 +19,7 @@ public class FirstSeleniumTest extends BaseTest {
 		logger.info("Title: " + DriverFactory.getDriver().getTitle());
 	}
 
-	@Test(groups = {"ui", "regression"})
+	@Test(groups = { "ui", "regression" })
 	public void verifyGoogleSearchBox() {
 		logger.info("Verifying Google search box visibility");
 
@@ -30,8 +31,14 @@ public class FirstSeleniumTest extends BaseTest {
 		logger.info("Search box is visible");
 	}
 
-	@Test(groups = "ui" )
+	@Test(groups = "ui")
 	public void sanityCheck() {
 		System.out.println("SANITY TEST RAN");
 	}
+
+	@Test(retryAnalyzer = RetryAnalyzer.class)
+	public void flakyDemoTest() {
+		Assert.assertTrue(Math.random() > 0.7);
+	}
+
 }
