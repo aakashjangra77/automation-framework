@@ -1,46 +1,37 @@
-🚀 Automation Framework – UI | API | E2E 
+# 🚀 SDET Automation Framework (UI + API + E2E)
 
-A scalable, production-ready automation framework built using Java, Selenium, TestNG, Rest Assured, Maven, following SDET best practices.
+A **scalable, production-ready test automation framework** built using **Java, Selenium, RestAssured, TestNG, Maven, and GitHub Actions**, following **industry best practices** used by SDET teams.
 
-This framework supports:
+This framework supports **UI automation, API automation, and End-to-End (API → UI) testing** with environment-based configuration, reporting, logging, retry logic, and CI integration.
 
-UI automation
+---
 
-API automation
+## 🧠 Key Highlights
 
-End-to-End (API → UI) testing
+* ✅ **UI Automation** using Selenium WebDriver
+* ✅ **API Automation** using RestAssured
+* ✅ **E2E Testing** (API data → UI validation)
+* ✅ **Page Object Model (POM)**
+* ✅ **Environment-based configuration** (QA / UAT / PROD)
+* ✅ **Thread-safe WebDriver (ThreadLocal)**
+* ✅ **Centralized logging (Log4j2)**
+* ✅ **Extent Reports with screenshots**
+* ✅ **Retry Analyzer for flaky tests**
+* ✅ **Test grouping (ui / api / e2e)**
+* ✅ **GitHub Actions CI Pipeline**
+* ✅ **Clean Git branching strategy**
 
-Environment-based configuration
+---
 
-Structured logging
+## 🏗️ Project Architecture
 
-Retry mechanism
+### Design Pattern
 
-Extent Reports
+**Page Object Model (POM)**
 
-GitHub Actions CI pipeline
+### Folder Structure
 
-🧩 Tech Stack
-
-Language: Java 21
-
-UI Automation: Selenium WebDriver
-
-API Automation: Rest Assured
-
-Test Framework: TestNG
-
-Build Tool: Maven
-
-Logging: Log4j2
-
-Reporting: Extent Reports
-
-CI/CD: GitHub Actions
-
-Design Pattern: Page Object Model (POM)
-
-📂 Project Structure
+```
 automation-framework
 │
 ├── src/main/java
@@ -48,13 +39,13 @@ automation-framework
 ├── src/test/java
 │   ├── com.sdet.framework.api        # API layer
 │   ├── com.sdet.framework.ui         # UI tests
-│   ├── com.sdet.framework.e2e        # E2E API → UI tests
+│   ├── com.sdet.framework.e2e        # API → UI E2E tests
 │   ├── com.sdet.framework.base       # BaseTest (setup/teardown)
-│   ├── com.sdet.framework.driver     # WebDriver factory
+│   ├── com.sdet.framework.driver     # WebDriver Factory
 │   ├── com.sdet.framework.pages      # Page Objects
-│   ├── com.sdet.framework.listeners  # TestNG listeners
-│   ├── com.sdet.framework.reporting  # Extent report manager
-│   └── com.sdet.framework.utils      # Config & utilities
+│   ├── com.sdet.framework.listeners  # TestNG Listeners
+│   ├── com.sdet.framework.reporting  # Extent Report Manager
+│   └── com.sdet.framework.utils      # Config, Logger, Utilities
 │
 ├── src/test/resources
 │   ├── config
@@ -64,142 +55,160 @@ automation-framework
 │   ├── log4j2.xml
 │
 ├── .github/workflows
-│   └── ci.yml                        # GitHub Actions pipeline
+│   └── ci.yml                        # GitHub Actions CI Pipeline
 │
 ├── pom.xml
 ├── testng.xml
 └── README.md
+```
 
-⚙️ Environment Configuration
+---
 
-The framework supports multiple environments using Maven profiles.
+## ⚙️ Environment Configuration
 
-Config files:
+The framework supports **multiple environments** using a single command.
+
+### Config Location
+
+```
 src/test/resources/config/
- ├── qa.properties
- ├── uat.properties
- └── prod.properties
+```
 
-Example:
+### Files
+
+```
+qa.properties
+uat.properties
+prod.properties
+```
+
+### Example Properties
+
+```properties
 baseUrl=https://www.google.com
 api.base.url=https://jsonplaceholder.typicode.com
 browser=chrome
+implicitWait=10
+```
 
-Run with environment:
+---
+
+## ▶️ How to Run Tests
+
+### Run All Tests
+
+```bash
+mvn clean test
+```
+
+### Run by Environment
+
+```bash
 mvn test -Denv=qa
 mvn test -Denv=uat
 mvn test -Denv=prod
+```
 
-🧪 Test Grouping (UI | API | E2E)
+### Run by Test Groups
 
-Tests are organized using TestNG groups.
+#### UI Tests
 
-Run UI tests:
-mvn test -Dgroups=ui
+```bash
+mvn test -Dgroups=ui -Denv=qa
+```
 
-Run API tests:
-mvn test -Dgroups=api
+#### API Tests
 
-Run E2E tests:
-mvn test -Dgroups=e2e
+```bash
+mvn test -Dgroups=api -Denv=qa
+```
 
-🔁 Retry Mechanism
+#### E2E Tests
 
-Failed tests are automatically retried
+```bash
+mvn test -Dgroups=e2e -Denv=qa
+```
 
-Implemented using TestNG RetryAnalyzer
+---
 
-Helps reduce flaky failures in CI runs
+## 🧪 Test Grouping Strategy
 
-📊 Reporting – Extent Reports
+| Group | Purpose                   |
+| ----- | ------------------------- |
+| `ui`  | UI automation tests       |
+| `api` | API automation tests      |
+| `e2e` | API → UI end-to-end tests |
 
-Rich HTML reports
+This allows **selective execution** locally and in CI.
 
-Screenshots attached on failure
+---
 
-Logs included per test
+## 📊 Reporting & Logging
 
-📁 Output:
+### 📌 Extent Reports
 
+* Auto-generated after every execution
+* Screenshots captured on failure
+* Location:
+
+```
 test-output/ExtentReport.html
+```
 
-📝 Logging
+### 📌 Logging
 
-Centralized logging using Log4j2
+* Implemented using **Log4j2**
+* Centralized logs per execution
+* Location:
 
-Logs for:
+```
+logs/automation.log
+```
 
-Test lifecycle
+---
 
-API requests/responses
+## 🔁 Retry Mechanism
 
-Browser actions
+* Failed tests are **automatically retried**
+* Helps handle flaky UI tests
+* Implemented using **TestNG RetryAnalyzer**
 
-Stored under:
+---
 
-logs/
+## 🔄 Git Branching Strategy
 
-🤖 CI/CD – GitHub Actions
+```
+main
+ ├── feature/logging
+ ├── feature/config-management
+ ├── feature/testing-groups
+ ├── feature/reporting
+ └── feature/retry-analyzer
+```
 
-CI pipeline runs automatically on:
+Each feature was:
 
-Push to main
+1. Developed in isolation
+2. Tested locally
+3. Merged to `main` via clean commits
 
-Pull requests to main
+---
 
-Current CI flow:
+## 🤖 GitHub Actions CI Pipeline
 
-Checkout code
+### CI Trigger
 
-Setup Java 21
+* On `push` to `main`
+* On `pull_request` to `main`
 
-Cache Maven dependencies
+### CI Workflow
 
-Run API tests on qa environment
+```yaml
+- Checkout code
+- Set up Java 21
+- Cache Maven dependencies
+- Run API tests on QA environment
+```
 
-mvn clean test -Dgroups=api -Denv=qa
+This ensures **every commit is validated automatically**.
 
-
-✅ Pipeline status visible under GitHub Actions
-
-🧠 Key Highlights (SDET Focused)
-
-✔ Clean separation of UI, API, and E2E layers
-✔ Reusable BaseTest & DriverFactory
-✔ Thread-safe logging & reporting
-✔ Environment-driven execution
-✔ CI-ready & scalable
-✔ Industry-aligned framework design
-
-📌 How to Run Locally
-
-Clone the repo:
-
-git clone https://github.com/<your-username>/automation-framework.git
-
-
-Navigate to project:
-
-cd automation-framework
-
-
-Run tests:
-
-mvn clean test
-
-👨‍💻 Author
-
-Aakash Jangra
-SDET | QA Automation Engineer
-
-🔗 LinkedIn: https://www.linkedin.com/in/aakash-jangra-78a526191/
-
-⭐ Final Note
-
-This framework is designed to mirror real-world SDET responsibilities and can be easily extended to:
-
-Parallel execution
-
-Docker + Selenium Grid
-
-Cloud execution (BrowserStack / Sauce Labs)
